@@ -5,9 +5,9 @@ describe("Employee", () => {
         it("should create an object with a name, id, and email if provided valid arguments", () => {
             const employee = new Employee('Jay', 2, 'jaybabydaddy@gmail.com');
 
-            expect(employee.name).toEqual('Jay');
-            expect(employee.id).toEqual(2);
-            expect(employee.email).toEqual('jaybabydaddy@gmail.com');
+            expect(employee._name).toEqual('Jay');
+            expect(employee._id).toEqual(2);
+            expect(employee._email).toEqual('jaybabydaddy@gmail.com');
         });
         it('should throw an error if provided no arguments or undefined', () => {
             const employee = () => {
