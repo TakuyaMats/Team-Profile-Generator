@@ -92,7 +92,6 @@ describe("Manager", () => {
     describe('getName', () => {
         it('it should return manager name', () => {
 
-
             expect(new Manager('Takuya').getName()).toBe("Takuya");
 
         });
