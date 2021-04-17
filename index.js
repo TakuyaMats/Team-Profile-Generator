@@ -1,9 +1,7 @@
-// const Employee = require("./lib/employee");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
 const Manager = require("./lib/manager");
 const util = require('util');
-const emailValidator = require('email-validator');
 const generateHTML = require('./src/generateHTML');
 const inquirer = require('inquirer');
 const fs = require('fs');
@@ -84,7 +82,7 @@ function askManager() {
             }
         }
     }, {
-        type: 'number',
+        type: 'input',
         name: 'officeNumber',
         message: "Please enter your Manager's officer number.",
         validate: answer => {
