@@ -1,4 +1,4 @@
-const generateHTML = (teamArrayRow1, teamArrayRow1) => {
+const generateHTML = (teamArrayRow1, teamArrayRow2) => {
     return `
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +29,7 @@ const generateHTML = (teamArrayRow1, teamArrayRow1) => {
 
 <div id="second-row" class="container-fluid padding">
     <div class="row padding justify-content-center">
-    ${generateTeam(teamArrayRow2)}
+    ${generateTeam2(teamArrayRow2)}
 </div>
 </div>
 
@@ -43,17 +43,27 @@ const generateHTML = (teamArrayRow1, teamArrayRow1) => {
 function generateTeam(teamArrayRow1) {
     let html = ""
     teamArrayRow1.forEach(member => {
-        console.log(member)
         switch (member.getRole()) {
             case "manager":
                 html += generateManager(member)
-                break;
-            case "engineer":
-                html += generateEngineer(member)
-                break;    
-            case "Intern":
+                break;  
+            case "intern":
                 html += generateIntern(member)
                 break;    
+            default:
+                break;
+        }
+    });
+    return html;
+}
+
+function generateTeam2 (teamArrayRow2) {
+    let html = ""
+    teamArrayRow2.forEach(member => {
+        switch (member.getRole()) {
+            case "engineer":
+                html += generateEngineer(member)
+                break;     
             default:
                 break;
         }
@@ -63,7 +73,7 @@ function generateTeam(teamArrayRow1) {
 
 function generateManager (manager) {
     return `
-    <div class="card col-md-4" style="max-width: 18rem;">
+    <div class="card col-md-6" style="max-width: 18rem;">
         <div class="card-header text-white bg-primary">
             <h3 class="text-center">${manager.getName()}</h3>
             <h4 class="text-center"><i class="fas fa-mug-hot"></i> ${manager.getRole()}</h4>
@@ -72,10 +82,29 @@ function generateManager (manager) {
             <li class="list-group-item">ID: ${manager.getId()}</li>
             <li class="list-group-item">
                 Email:
-                <a href = "mailto: ${manager.getEmail()}">${manager.getEmail()}</a></li>
+                <a href = "mailto: ${manager.getEmail()}"> ${manager.getEmail()}</a></li>
             <li class="list-group-item">Office number: ${manager.officeNumber()}</li>
         </ul>
     </div>
+`
+};
+
+function generateIntern (intern) {
+    return `
+    <div class="card col-md-6" style="max-width: 18rem;">
+    <div class="card-header text-white bg-primary">
+        <h3 class="text-center">${intern.getName()}</h3>
+        <h4 class="text-center"><i class="fas fa-user-graduate"></i> ${intern.getRole()}</h4>
+    </div>
+    <ul class="card-body text-dark">
+        <li class="list-group-item">ID: ${intern.getId()}</li>
+        <li class="list-group-item">
+            Email:
+            <a href = "mailto: ${intern.getEmail()}"> ${intern.getEmail()}</a>
+        </li>
+        <li class="list-group-item">${intern.getSchool()}</li>
+    </ul>
+</div>
 `
 };
 
@@ -92,27 +121,7 @@ function generateEngineer (engineer) {
             Email:
             <a href = "mailto: ${engineer.getEmail()}">${engineer.getEmail()}</a></li>
         <li class="list-group-item">Github:
-            <a href="www.github.com" target="_blank"> i${engineer.getGithub()}</a>
-        </li>
-    </ul>
-</div>
-`
-};
-
-function generateEngineer (intern) {
-    return `
-    <div class="card col-md-4" style="max-width: 18rem;">
-    <div class="card-header text-white bg-primary">
-        <h3 class="text-center">${intern.getName()}</h3>
-        <h4 class="text-center"><i class="fas fa-glasses"></i> ${intern.getRole()}</h4>
-    </div>
-    <ul class="card-body text-dark">
-        <li class="list-group-item">ID: ${intern.getId()}</li>
-        <li class="list-group-item">
-            Email:
-            <a href = "mailto: ${intern.getEmail()}">${intern.getEmail()}</a></li>
-        <li class="list-group-item">Github:
-            <a href="www.github.com" target="_blank"> i${intern.getSchool()}</a>
+            <a href="www.github.com/${engineer.getGithub()}" target="_blank"> ${engineer.getGithub()}</a>
         </li>
     </ul>
 </div>

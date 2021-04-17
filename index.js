@@ -35,7 +35,7 @@ function createTeam() {
                 askEngineer();
                 break;
             case "Intern":
-                askInternQuestion();
+                askIntern();
                 break;
             case "I don't want to add any more team members":
                 print();
@@ -81,6 +81,43 @@ function askManager() {
     })
 };
 
+function askIntern() {
+    inquirer.prompt([
+
+        {
+            type: 'input',
+            name: 'name',
+            message: "Please enter your team Intern's name.",
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: "Please enter your Intern's ID."
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: "Please enter your Intern's email address."
+        },
+        {
+            type: 'number',
+            name: 'school',
+            message: "Please enter your Intern's school name."
+        },
+        {
+            type: 'list',
+            name: ' role',
+            message: 'Please choose what kind of team member you would like to add to your team',
+            choices: ['Engineer', 'Manager'],
+
+        },
+    ]).then((data) => {
+        let intern = new Intern (data.name, data.id, data.email, data.school);
+        teamArrayRow1.push(intern);
+        createTeam();
+    })
+};
+
 function askEngineer() {
     inquirer.prompt([
 
@@ -114,14 +151,13 @@ function askEngineer() {
     ]).then((data) => {
         let engineer = new Engineer (data.name, data.id, data.email, data.github);
         teamArrayRow2.push(engineer);
-        console.log(teamArrayRow2)
         createTeam();
     })
 };
 
 const print = () => {
 
-    let html = generateHTML(teamArrayRow1);
+    let html = generateHTML(teamArrayRow1, teamArrayRow2);
     console.log(html)
     writeFileAsync('./dist/index.html', html)
         .then(() => console.log('Successfully wrote to index.html'))
