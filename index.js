@@ -1,4 +1,4 @@
-const Employee = require("./lib/employee");
+// const Employee = require("./lib/employee");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
 const Manager = require("./lib/manager");
@@ -19,12 +19,12 @@ function createTeam() {
     inquirer.prompt([{
         type: "list",
         name: "employee",
-        message: "Which type of team member are you?",
+        message: "Which employee would you like to add to your team?",
         choices: [
             "Manager",
             "Engineer",
             "Intern",
-            "I don't want to add any more team members"
+            "I do not want to add any more team members"
         ]
     }]).then(data => {
         switch (data.employee) {
@@ -37,17 +37,15 @@ function createTeam() {
             case "Intern":
                 askIntern();
                 break;
-            case "I don't want to add any more team members":
+            case "I do not want to add any more team members":
                 print();
                 break;
         }
     })
-};
+}
 
 function askManager() {
-    inquirer.prompt([
-
-        {
+    inquirer.prompt([{
             type: 'input',
             name: 'name',
             message: "Please enter your team Manager's name.",
@@ -69,17 +67,33 @@ function askManager() {
         },
         {
             type: 'list',
-            name: ' role',
+            name: 'role',
             message: 'Please choose what kind of team member you would like to add to your team',
-            choices: ['Engineer', 'Intern'],
-
-        },
-    ]).then((data) => {
-        let manager = new Manager (data.name, data.id, data.email, data.officeNumber);
+            choices: [
+                "Engineer",
+                "Intern",
+                "I do not want to add any more team members"
+            ]
+        }
+    ]).then(data => {
+        let manager = new Manager(data.name, data.id, data.email, data.officeNumber);
         teamArrayRow1.push(manager);
-        createTeam();
+        switch (data.role) {
+            case "Manager":
+                askManager()
+                break;
+            case "Engineer":
+                askEngineer()
+                break;
+            case "Intern":
+                askIntern()
+                break;
+            case "I do not want to add any more team members":
+                print()
+                break;
+        }
     })
-};
+}
 
 function askIntern() {
     inquirer.prompt([
@@ -100,23 +114,39 @@ function askIntern() {
             message: "Please enter your Intern's email address."
         },
         {
-            type: 'number',
+            type: 'input',
             name: 'school',
             message: "Please enter your Intern's school name."
         },
         {
             type: 'list',
-            name: ' role',
+            name: 'role',
             message: 'Please choose what kind of team member you would like to add to your team',
-            choices: ['Engineer', 'Manager'],
-
-        },
-    ]).then((data) => {
-        let intern = new Intern (data.name, data.id, data.email, data.school);
+            choices: [
+                "Engineer",
+                "Manager",
+                "I do not want to add any more team members"
+            ]
+        }
+    ]).then(data => {
+        let intern = new Intern(data.name, data.id, data.email, data.school);
         teamArrayRow1.push(intern);
-        createTeam();
+        switch (data.role) {
+            case "Manager":
+                askManager()
+                break;
+            case "Engineer":
+                askEngineer()
+                break;
+            case "Intern":
+                askIntern()
+                break;
+            case "I do not want to add any more team members":
+                print();
+                break;
+        }
     })
-};
+}
 
 function askEngineer() {
     inquirer.prompt([
@@ -143,17 +173,34 @@ function askEngineer() {
         },
         {
             type: 'list',
-            name: ' role',
+            name: 'role',
             message: 'Please choose what kind of team member you would like to add to your team',
-            choices: ['Engineer', 'Intern'],
-
-        },
-    ]).then((data) => {
-        let engineer = new Engineer (data.name, data.id, data.email, data.github);
+            choices: [
+                "Manager",
+                "Engineer",
+                "Intern",
+                "I do not want to add any more team members"
+            ]
+        }
+    ]).then(data => {
+        let engineer = new Engineer(data.name, data.id, data.email, data.github);
         teamArrayRow2.push(engineer);
-        createTeam();
+        switch (data.role) {
+            case "Manager":
+                askManager()
+                break;
+            case "Engineer":
+                askEngineer()
+                break;
+            case "Intern":
+                askIntern()
+                break;
+            case "I do not want to add any more team members":
+                print();
+                break;
+        }
     })
-};
+}
 
 const print = () => {
 
@@ -168,4 +215,4 @@ const init = () => {
     createTeam();
 }
 
-init();
+init()
